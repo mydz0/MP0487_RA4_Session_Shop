@@ -32,7 +32,7 @@ if (isset($_POST['product'])) {
 
     if (
         isset($_SESSION['stock'][$product]) &&
-        $_SESSION['stock'][$product] >= 0 
+        $_SESSION['stock'][$product] >= 0
     ) {
         // Increase quantity in cart
         if (!isset($_SESSION['cart'][$product])) {
@@ -48,8 +48,13 @@ if (isset($_POST['product'])) {
 
 // Calculate total price
 $totalPrice = 0;
-foreach ($_SESSION['cart'] as $item => $qty) {
-    $totalPrice = $products[$item]['price'] * $qty; 
+$totalItems = 0;
+
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item => $qty) {
+        $totalItems += $qty;
+        $totalPrice = $products[$item]['price'] * $qty;
+    }
 }
 ?>
 
@@ -302,38 +307,38 @@ foreach ($_SESSION['cart'] as $item => $qty) {
 
     <div class="container">
         <div class="cart-info">
-        <div class="user-info">
-    <div class="info-item">
-        <span class="info-label">Items in Cart</span>
-        <span class="info-value">
-            <?= array_sum($_SESSION['cart']); ?>
-        </span>
-    </div>
+            <div class="user-info">
+                <div class="info-item">
+                    <span class="info-label">Items in Cart</span>
+                    <span class="info-value">
+                        <?= array_sum($_SESSION['cart']); ?>
+                    </span>
+                </div>
 
-    <div class="info-item">
-        <span class="info-label">Cart Details</span>
-        <span class="info-value" style="font-size:0.95em; font-weight:500; color:#333;">
-            <?php if (empty($_SESSION['cart'])): ?>
-                Empty
-            <?php else: ?>
-                <?php foreach ($_SESSION['cart'] as $item => $qty): ?>
-                    <?= htmlspecialchars($item) ?>
-                    (<?= $qty ?> × €<?= number_format($products[$item]['price'], 2) ?>)
-                    = €<?= number_format($products[$item]['price'] * $qty, 2) ?><br>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </span>
-    </div>
+                <div class="info-item">
+                    <span class="info-label">Cart Details</span>
+                    <span class="info-value" style="font-size:0.95em; font-weight:500; color:#333;">
+                        <?php if (empty($_SESSION['cart'])): ?>
+                            Empty
+                        <?php else: ?>
+                            <?php foreach ($_SESSION['cart'] as $item => $qty): ?>
+                                <?= htmlspecialchars($item) ?>
+                                (<?= $qty ?> × €<?= number_format($products[$item]['price'], 2) ?>)
+                                = €<?= number_format($products[$item]['price'] * $qty, 2) ?><br>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </span>
+                </div>
 
-    <div class="info-item">
-        <span class="info-label">Total Price</span>
-        <span class="info-value">
-            €<?= number_format($totalPrice, 2); ?>
-        </span>
-    </div>
-</div>
+                <div class="info-item">
+                    <span class="info-label">Total Price</span>
+                    <span class="info-value">
+                        €<?= number_format($totalPrice, 2); ?>
+                    </span>
+                </div>
+            </div>
 
-            
+
             <div class="cart-actions">
                 <a href="checkout.php" class="btn btn-checkout">🛒 Go to Checkout</a>
             </div>
