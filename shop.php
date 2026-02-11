@@ -48,14 +48,12 @@ if (isset($_POST['product'])) {
 
 // Calculate total price
 $totalPrice = 0;
-$totalItems = 0;
 
-if (!empty($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $item => $qty) {
-        $totalItems += $qty;
-        $totalPrice = $products[$item]['price'] * $qty;
-    }
+foreach ($_SESSION['cart'] as $item => $qty) {
+    //it was not summing the total price
+    $totalPrice += $products[$item]['price'] * $qty;
 }
+
 ?>
 
 <!DOCTYPE html>
