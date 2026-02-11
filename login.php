@@ -3,6 +3,7 @@ session_start();
 
 if (isset($_POST['username'])) {
     $_SESSION['user'] = $_POST['username'];
+    //changed the user path w/ the psw path
     $_SESSION['password'] = $_POST['password'];
     $_SESSION['cart'] = [];
     header("Location: shop.php");
