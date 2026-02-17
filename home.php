@@ -1,6 +1,5 @@
 <?php
 session_start();
-//it deletes the session
 //session_unset();
 ?>
 <!DOCTYPE html>
